@@ -1,0 +1,27 @@
+.warningDiv {
+    width: 80px;
+    height: 80px;
+    background: red;
+    position: absolute;
+    top:265px;
+    left:155px;
+    -ms-transform: rotate(45deg); /* IE 9 */
+    -webkit-transform: rotate(45deg); /* Safari 3-8 */
+    transform: rotate(45deg);
+  
+}
+
+
+.warningDiv img {
+    width: 40px;
+    height: 55px;
+    position: absolute;
+    top: -10px;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    margin: auto;
+    -ms-transform: rotate(-45deg); /* IE 9 */
+    -webkit-transform: rotate(-45deg); /* Safari 3-8 */
+    transform: rotate(-45deg);
+}
