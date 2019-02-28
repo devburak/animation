@@ -24,7 +24,8 @@ class Player extends React.Component{
         this.state={
             time:0,
             start:false,
-            hovering:false
+            hovering:false,
+            signExplain: false,
         }
     }
     componentDidMount() {
@@ -61,9 +62,12 @@ class Player extends React.Component{
     toggleDeneme = ()=>{
         if(this.state.hovering) this.setState({hovering:false})
         else this.setState({hovering:true})
-        console.log(this.state.hovering)
     }
     
+    toggleSign = ()=>{
+        if(this.state.signExplain) this.setState({signExplain:false})
+        else this.setState({signExplain:true})
+    }
 
     render(){
         return (
@@ -81,7 +85,6 @@ class Player extends React.Component{
                     <Scene />
                     <div style={{
                         position: "absolute",
-                        top: 130,
                         left: 111
                     }} >    
                       <Deneme
@@ -93,10 +96,8 @@ class Player extends React.Component{
                         <p><strong>2711</strong></p>
                     </Deneme>
                     </div>
-                    <Sign signName='flame' />
-                    <Text isVisible={this.state.hovering} text={'Deneme'} >
-                        <p>içerik</p>
-                    </Text>
+                    <Sign signName='flame'  onClick={this.toggleSign} clicked={this.state.signExplain}/>
+                
                 </Row>
             </Container>
         )

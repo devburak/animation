@@ -1,25 +1,21 @@
 import React from 'react';
 import posed from "react-pose";
-import SplitText from 'react-pose-text';
+import { tween } from 'popmotion';
 
-const charPoses = {
-    exit: { opacity: 0, y: 20 },
-    enter: {
-      opacity: 1,
-      y: 0,
-      delay: ({ charIndex }) => charIndex * 30
-    }
-  };
+
   const Div = posed.div({
-      visible:{opacity:1},
+      visible:{
+          opacity:1,
+          delay: 100
+    },
       hidden : {opacity:0}
   })
 
-  const Text = ({children ,isVisible,}) =>{
-      console.log(children)
-      return (<Div  pose={isVisible ? "visible" : "hidden"}><SplitText initialPose="exit" pose="enter" charPoses={charPoses}> Deneme </SplitText>
+  const Text = ({children ,isVisible,style}) =>{
+
+      return (
+      <Div className="box arrow-left-top"  style={style} pose={isVisible ? "visible" : "hidden"}>
       {children}
        </Div>)
   }
-
 export default Text
