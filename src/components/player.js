@@ -22,14 +22,14 @@ class Player extends React.Component{
     constructor(props){
         super(props);
         this.state={
-            time:0,
+            time:10*60*59,
             start:false,
             hovering:false,
             signExplain: false,
         }
     }
     componentDidMount() {
-        this.interval = setInterval(() => this.tick(), 1000);
+        this.interval = setInterval(() => this.tick(), 100);
       }
       componentWillUnmount() {
         clearInterval(this.interval);
@@ -38,11 +38,34 @@ class Player extends React.Component{
     clickHandle =(event)=>{
         console.log(event)
     }
+
     tick=()=> {
      if(this.state.start)
         this.setState(prevState => ({
           time: prevState.time + 1
-        }));
+
+        }), ()=> this.akis()
+            
+        );
+
+        
+      }
+
+      akis = ()=>{
+          if(this.state.time == 30){
+              this.toggleDeneme()
+          }
+          if(this.state.time == 100){
+              this.toggleSign()
+          }
+          if(this.state.time==170)
+          this.init()
+      }
+
+      init=()=>{
+          this.setState({ hovering:false,
+            signExplain: false})
+            this.toglleHandle()
       }
 
     stop=()=>{
@@ -51,7 +74,7 @@ class Player extends React.Component{
     }
     start=()=>{
         this.setState({start:true});
-        this.interval = setInterval(() => this.tick(), 1000);
+        this.interval = setInterval(() => this.tick(), 100);
     }
 
     toglleHandle =()=>{
@@ -62,11 +85,22 @@ class Player extends React.Component{
     toggleDeneme = ()=>{
         if(this.state.hovering) this.setState({hovering:false})
         else this.setState({hovering:true})
+        this.setState({signExplain:false})
     }
     
     toggleSign = ()=>{
         if(this.state.signExplain) this.setState({signExplain:false})
         else this.setState({signExplain:true})
+        this.setState({hovering:false})
+    }
+
+    time = ()=>{
+        let {time} = this.state;
+        var ss = (time % 100);
+        var second = ("0" +  (Math.trunc(time / 10) % 60)).slice(-2)
+        var minute = ("0" + (Math.trunc(time /600)%60)).slice(-2)
+        var hour = Math.trunc(time /36000).toFixed(0)
+        return(<p>{`${hour} : ${minute} : ${second} : ${ss}`}</p>)
     }
 
     render(){
@@ -77,7 +111,7 @@ class Player extends React.Component{
                     <Button variant="outline-success" onClick={this.toglleHandle}>
                      { this.state.start ?  <i className="fas fa-pause"></i>  :   <i className="fas fa-play"></i> }
                     </Button>
-                     <p>{this.state.time}</p>
+                     <p>{this.time()}</p>
                 </Row>
               
                     
@@ -96,8 +130,13 @@ class Player extends React.Component{
                         <p><strong>2711</strong></p>
                     </Deneme>
                     </div>
+                    <div style={{
+                        position: "absolute",
+                        top:265,
+                        left:155
+                    }} > 
                     <Sign signName='flame'  onClick={this.toggleSign} clicked={this.state.signExplain}/>
-                
+                </div>
                 </Row>
             </Container>
         )

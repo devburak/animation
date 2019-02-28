@@ -5,23 +5,21 @@ import { easing, tween, action  } from 'popmotion';
 import Text from './text';
 
 const Square = posed.div({
-    idle: { x: 0 , y:120
+    idle: { x: 0 , y:120,
+        delay:200
     },
     hovered: { x: 340, y:20,
         transition: props => tween({ ...props, duration: 100 })
-        
     }     
   })
 
-  
-  
   const Dx =  styled(Square)`
     width: 180px;
     height: 90px;
     background: orange;
     border-style: solid;
-     border-width: 5px;
-     font-size: x-large;
+    border-width: 5px;
+    font-size: x-large;
   `;
     const Deneme = (props) =>{
         return(<Dx {...props}>

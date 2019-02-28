@@ -2,7 +2,7 @@
     width: 80px;
     height: 80px;
     background: red;
-    position: absolute;
+   
     top:265px;
     left:155px;
     -ms-transform: rotate(45deg); /* IE 9 */
