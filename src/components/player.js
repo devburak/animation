@@ -5,29 +5,34 @@ import styled from "styled-components";
 import Deneme from './deneme';
 import Sign from './warningSign';
 import Text from './text';
+import Screen from './screen';
+import HoverVisible from './hoverVisible';
 
 const StyledP = styled.p` 
     border-bottom: solid 4px;
     margin-bottom:0px;
   `;
 
-  
   const P = ({ className, children }) => (
     <p className={className}>
       {children}
     </p>
   );
 class Player extends React.Component{
-
     constructor(props){
         super(props);
         this.state={
-            time:10*60*59,
+            time:0,
             start:false,
             hovering:false,
             signExplain: false,
+            screenOpen : true,
+            playerNav:false,
+            bolumHeader: 'BÖLÜM I',
+            bolum:1,
         }
     }
+
     componentDidMount() {
         this.interval = setInterval(() => this.tick(), 100);
       }
@@ -43,23 +48,29 @@ class Player extends React.Component{
      if(this.state.start)
         this.setState(prevState => ({
           time: prevState.time + 1
-
-        }), ()=> this.akis()
-            
+        }), ()=> this.akis()  
         );
-
-        
       }
 
       akis = ()=>{
-          if(this.state.time == 30){
+          if(this.state.time==0){
+              this.setState({screenOpen:true})
+          }
+          if(this.state.time==3){
+            this.setState({screenOpen:false})
+          }
+          if(this.state.time == 50){
               this.toggleDeneme()
           }
-          if(this.state.time == 100){
+          if(this.state.time == 110){
               this.toggleSign()
           }
-          if(this.state.time==170)
+          if(this.state.time==190){
+            this.setState({screenOpen:true,bolumHeader:'BÖLÜM II', bolum:2})
+          }
+          if(this.state.time==196)
           this.init()
+
       }
 
       init=()=>{
@@ -103,40 +114,59 @@ class Player extends React.Component{
         return(<p>{`${hour} : ${minute} : ${second} : ${ss}`}</p>)
     }
 
+    screenToogle = ()=>{
+        if(this.state.screenOpen) this.setState({screenOpen:false})
+        else this.setState({screenOpen:true})
+    }
+
     render(){
         return (
-            <Container>
-                <Row>
-
+            <Container onMouseOver={()=>this.setState({playerNav:true})} onMouseOut={()=>this.setState({playerNav:false})}>
+                <Row className="player-nav">
+                    <HoverVisible isOpen={this.state.playerNav}>
+                   
+                    <Col sm={4}>
+                    <p>{this.state.bolumHeader}</p>
+                    </Col>
+                    <Col sm={4}>
                     <Button variant="outline-success" onClick={this.toglleHandle}>
-                     { this.state.start ?  <i className="fas fa-pause"></i>  :   <i className="fas fa-play"></i> }
+                        {this.state.start ? <i className="fas fa-pause"></i> : <i className="fas fa-play"></i>}
                     </Button>
-                     <p>{this.time()}</p>
+                    </Col>
+                    <Col sm={4}>
+                    <p>{this.time()}</p>
+                    </Col>
+                    </HoverVisible>
                 </Row>
-              
-                    
-                    <Row  style={{position:"relative"}}>
+
+                <Row style={{position: "relative"}} >
+                <Screen isOpen={this.state.screenOpen} text={this.state.bolumHeader} >
+                    </Screen>
+                    <div style={this.state.bolum==1?{visibility:"unset"}:{visibility:"hidden"}}>
                     <Scene />
-                    <div style={{
-                        position: "absolute",
-                        left: 111
-                    }} >    
-                      <Deneme
-                            pose={this.state.hovering ? "hovered" : "idle"}
-                            onClick={this.toggleDeneme}
-                           
-                        > 
-                        <StyledP><strong>33</strong></StyledP>
-                        <p><strong>2711</strong></p>
-                    </Deneme>
-                    </div>
-                    <div style={{
-                        position: "absolute",
-                        top:265,
-                        left:155
-                    }} > 
-                    <Sign signName='flame'  onClick={this.toggleSign} clicked={this.state.signExplain}/>
-                </div>
+                        <div style={{
+                            position: "absolute",
+                            left: 111,
+                            top:20
+                        }} >
+                            <Deneme
+                                pose={this.state.hovering ? "hovered" : "idle"}
+                                onClick={this.toggleDeneme}
+
+                            >
+                                <StyledP><strong>33</strong></StyledP>
+                                <p><strong>2711</strong></p>
+                            </Deneme>
+                        </div>
+                        <div style={{
+                            position: "absolute",
+                            top: 265,
+                            left: 155
+                        }} >
+                            <Sign signName='flame' onClick={this.toggleSign} clicked={this.state.signExplain} />
+                        </div>   
+                        </div>
+
                 </Row>
             </Container>
         )

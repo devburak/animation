@@ -22,8 +22,10 @@ const Square = posed.div({
     font-size: x-large;
   `;
     const Deneme = (props) =>{
-        return(<Dx {...props}>
+        return(<Square pose={props.pose}  {...props} >
+            <div className="turuncu-tabela" style={{top:120}}>
             {props.children}
+            </div>
             <Text isVisible={props.pose=="hovered"?true:false} text={'Deneme'}  style={{left:-5, color:"white"}}>
             <h3>TURUNCU RENKLİ PLAKA</h3>
             
@@ -33,6 +35,7 @@ dik olacak şekilde taşıma ünitesinin ön ve arka tarafına takılmalıdır. 
 Tehlikeli malların taşınması sırasında, tehlikeli mal içeren römork motorlu araçtan ayrılmışsa, turuncu
 renkli plaka römorkun arkasına tutturulmuş şekilde kalacaktır. </p>
         </Text>
-        </Dx>)
+
+        </Square>)
     }
   export default Deneme;
