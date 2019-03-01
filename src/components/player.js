@@ -99,6 +99,8 @@ class Player extends React.Component{
           this.setState({ hovering:false,
             signExplain: false,
             finish:true,
+            bolumHeader: 'BÖLÜM I',
+            bolum:1,
         })
             this.toglleHandle()
       }
