@@ -25,7 +25,7 @@
 }
 .turuncu-tabela{
     width: 180px;
-    height: 90px;
+    height: 86px;
     background: orange;
     border-style: solid;
     border-width: 5px;
@@ -211,4 +211,13 @@
   .box.arrow-top-right,
   .box.arrow-right-top {
     border-top-right-radius: 0;
+  }
+
+  .infobox{
+    top: 15px;
+    position: absolute;
+    right: 0;
+    text-align: left;
+    overflow-wrap: break-word;
+    width: 600px;
   }

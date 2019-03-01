@@ -11,10 +11,10 @@ import { tween } from 'popmotion';
       hidden : {opacity:0}
   })
 
-  const Text = ({children ,isVisible,style}) =>{
+  const Text = ({children ,isVisible,style,className="box arrow-left-top"}) =>{
 
       return (
-      <Div className="box arrow-left-top"  style={style} pose={isVisible ? "visible" : "hidden"}>
+      <Div className={className}  style={style} pose={isVisible ? "visible" : "hidden"}>
       {children}
        </Div>)
   }
